@@ -1,65 +1,106 @@
-import Image from "next/image";
+// src/app/page.tsx
+"use client";
 
-export default function Home() {
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+export default function LandingPage() {
+  const router = useRouter();
+  const [hovered, setHovered] = useState(false);
+  const [analysisMode, setAnalysisMode] = useState(false);
+
+  const handleTakeTestClick = () => {
+    setAnalysisMode(true);
+    setTimeout(() => {
+      router.push("/test/intro");
+    }, 600);
+  };
+
+  const handleBack = () => {
+    setAnalysisMode(false);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="layout__main">
+      <section
+        className={[
+          "intro__frame",
+          hovered ? "intro__frame--hover" : "",
+          analysisMode ? "intro__frame--analysis intro__frame--expanded" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        {/* LEFT hit zone + ring */}
+        <div className="diamond-hit diamond-hit--left">
+          <div className="diamond-ring" />
+        </div>
+
+        {/* RIGHT hit zone + ring */}
+        <button
+          type="button"
+          className="diamond-hit diamond-hit--right"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onClick={handleTakeTestClick}
+        >
+          <div className="diamond-ring" />
+        </button>
+
+        {/* inner left Discover AI diamond content */}
+        <div className="diamond-left-label">
+          <div className="diamond-left-label-inner">Discover A.I.</div>
+        </div>
+
+        {/* inner right Take test diamond content */}
+        <div className="diamond-btn">
+          <div className="diamond-btn-inner">
+            <span className="diamond-btn-label">Take test</span>
+            <span className="diamond-btn-icon" />
+          </div>
+        </div>
+
+        {/* center headline */}
+        <div
+          className={[
+            "intro__headline-shell",
+            hovered || analysisMode
+              ? "intro__headline-shell--pushed-left"
+              : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          <h1 className="intro__headline">
+            Sophisticated
+            <br />
+            skincare
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* analysis header + back */}
+        <div className="analysis-header">
+          <div className="back-diamond" onClick={handleBack}>
+            <div className="back-diamond-inner" />
+          </div>
+          <span className="analysis-header-label">To start analysis</span>
         </div>
-      </main>
-    </div>
+
+        {/* central Introduce yourself diamond */}
+        <div className="analysis-diamond">
+          <div className="analysis-diamond-inner">
+            <div className="analysis-diamond-title">Introduce yourself</div>
+            <div className="analysis-diamond-line" />
+          </div>
+        </div>
+      </section>
+
+      <footer className="layout__footer">
+        <p className="footer__text">
+          Skinstric developed an A.I. that creates a highly‑personalised routine
+          tailored to what your skin needs.
+        </p>
+      </footer>
+    </main>
   );
 }
