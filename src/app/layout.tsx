@@ -1,3 +1,4 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import "../styles/globals.css";
 import "../styles/skinstric.css";

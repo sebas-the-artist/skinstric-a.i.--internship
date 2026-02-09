@@ -6,68 +6,81 @@ import { useState } from "react";
 
 export default function LandingPage() {
   const router = useRouter();
-  const [hovered, setHovered] = useState(false);
-  const [analysisMode, setAnalysisMode] = useState(false);
+
+  const [hoverRight, setHoverRight] = useState(false);
+  const [hoverLeft, setHoverLeft] = useState(false);
 
   const handleTakeTestClick = () => {
-    setAnalysisMode(true);
+    // tiny delay so the headline can start its slide if you want
     setTimeout(() => {
       router.push("/test/intro");
-    }, 600);
+    }, 200);
   };
 
-  const handleBack = () => {
-    setAnalysisMode(false);
-  };
+  const headlineSlideClass = hoverRight
+    ? "intro__headline-shell--left"
+    : hoverLeft
+    ? "intro__headline-shell--right"
+    : "";
 
   return (
     <main className="layout__main">
-      <section
-        className={[
-          "intro__frame",
-          hovered ? "intro__frame--hover" : "",
-          analysisMode ? "intro__frame--analysis intro__frame--expanded" : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
-        {/* LEFT hit zone + ring */}
-        <div className="diamond-hit diamond-hit--left">
-          <div className="diamond-ring" />
-        </div>
+      <section className="intro__frame">
+        {/* big side rings */}
+        <div
+          className={[
+            "diamond-ring diamond-ring--left",
+            hoverRight ? "is-hidden-left" : ""
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        />
+        <div
+          className={[
+            "diamond-ring diamond-ring--right",
+            hoverLeft ? "is-hidden-right" : ""
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        />
 
-        {/* RIGHT hit zone + ring */}
+        {/* left Discover AI diamond */}
         <button
           type="button"
-          className="diamond-hit diamond-hit--right"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          onClick={handleTakeTestClick}
+          className={[
+            "diamond-left-label",
+            hoverRight ? "is-hidden-left" : ""
+          ]
+            .filter(Boolean)
+            .join(" ")}
+          onMouseEnter={() => setHoverLeft(true)}
+          onMouseLeave={() => setHoverLeft(false)}
         >
-          <div className="diamond-ring" />
+          <div className="diamond-left-label-inner">Discover A.I.</div>
         </button>
 
-        {/* inner left Discover AI diamond content */}
-        <div className="diamond-left-label">
-          <div className="diamond-left-label-inner">Discover A.I.</div>
-        </div>
-
-        {/* inner right Take test diamond content */}
-        <div className="diamond-btn">
+        {/* right Take test diamond */}
+        <button
+          type="button"
+          className={[
+            "diamond-btn",
+            hoverLeft ? "is-hidden-right" : ""
+          ]
+            .filter(Boolean)
+            .join(" ")}
+          onMouseEnter={() => setHoverRight(true)}
+          onMouseLeave={() => setHoverRight(false)}
+          onClick={handleTakeTestClick}
+        >
           <div className="diamond-btn-inner">
             <span className="diamond-btn-label">Take test</span>
             <span className="diamond-btn-icon" />
           </div>
-        </div>
+        </button>
 
         {/* center headline */}
         <div
-          className={[
-            "intro__headline-shell",
-            hovered || analysisMode
-              ? "intro__headline-shell--pushed-left"
-              : "",
-          ]
+          className={["intro__headline-shell", headlineSlideClass]
             .filter(Boolean)
             .join(" ")}
         >
@@ -76,22 +89,6 @@ export default function LandingPage() {
             <br />
             skincare
           </h1>
-        </div>
-
-        {/* analysis header + back */}
-        <div className="analysis-header">
-          <div className="back-diamond" onClick={handleBack}>
-            <div className="back-diamond-inner" />
-          </div>
-          <span className="analysis-header-label">To start analysis</span>
-        </div>
-
-        {/* central Introduce yourself diamond */}
-        <div className="analysis-diamond">
-          <div className="analysis-diamond-inner">
-            <div className="analysis-diamond-title">Introduce yourself</div>
-            <div className="analysis-diamond-line" />
-          </div>
         </div>
       </section>
 
