@@ -1,5 +1,22 @@
 /* src/styles/skinstric.css */
-/* ====== Global layout ====== */
+
+/* =========================================================
+   1. Global layout & reset
+   ========================================================= */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .layout__shell {
   min-height: 100vh;
   height: 100vh;
@@ -28,7 +45,6 @@
   overflow: hidden;
 }
 
-/* full canvas for landing */
 .intro__frame {
   flex: 1;
   position: relative;
@@ -36,7 +52,10 @@
   height: 100%;
 }
 
-/* ====== Nav ====== */
+/* =========================================================
+   2. Navigation
+   ========================================================= */
+
 .nav__bar {
   display: flex;
   align-items: center;
@@ -81,7 +100,15 @@
   cursor: pointer;
 }
 
-/* ====== Center headline ====== */
+/* Hide nav on test intro page if you want */
+body.test-page .nav__bar {
+  display: none !important;
+}
+
+/* =========================================================
+   3. Headline & footer
+   ========================================================= */
+
 .intro__headline-shell {
   position: absolute;
   left: 50%;
@@ -95,6 +122,10 @@
   transform-style: preserve-3d;
 }
 
+.intro__headline-shell--fading {
+  opacity: 0;
+}
+
 .intro__headline {
   margin: 0;
   font-weight: 300;
@@ -104,19 +135,16 @@
   white-space: nowrap;
 }
 
-/* pushed left (right diamond active: Take test) */
 .intro__headline-shell--left {
   transform: translate(-50%, -50%) translateX(-30vw);
   text-align: left;
 }
 
-/* pushed right (left diamond active: Discover A.I.) */
 .intro__headline-shell--right {
   transform: translate(-50%, -50%) translateX(30vw);
   text-align: right;
 }
 
-/* ====== Bottom-left copy ====== */
 .layout__footer {
   position: absolute;
   left: 32px;
@@ -130,22 +158,42 @@
   max-width: 320px;
 }
 
-/* ====== HIDDEN CLASSES ====== */
-.is-hidden-left {
-  opacity: 0 !important;
-  transform: translateY(-50%) rotate(-45deg) translateX(-60px) !important;
-  pointer-events: none !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+/* =========================================================
+   4. Fade / hidden helpers
+   ========================================================= */
+
+/* Peeking ring hides on side unless hovered */
+.diamond-ring--peek-hide {
+  opacity: 0;
+  transform: translateY(-50%) rotate(45deg) translateX(-60px);
 }
 
-.is-hidden-right {
-  opacity: 0 !important;
-  transform: translateY(-50%) rotate(45deg) translateX(60px) !important;
-  pointer-events: none !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+/* Fade label buttons when expanding */
+.diamond-btn--fade-out {
+  opacity: 0;
+  transform: translateY(-50%) rotate(45deg) scale(0.92);
 }
 
-/* ====== Side diamond rings ====== */
+.intro__headline-shell--fading {
+  opacity: 0;
+}
+
+/* Disable clicks & fades in expand state */
+.intro__frame--expanding * {
+  pointer-events: none !important;
+}
+
+.intro__frame--expanding .intro__headline-shell,
+.intro__frame--expanding .diamond-btn-left,
+.intro__frame--expanding .diamond-btn-right {
+  opacity: 0 !important;
+}
+
+/* =========================================================
+   5. Landing side rings (peeking diamonds)
+   ========================================================= */
+
+/* Outer peeking rings */
 .diamond-ring {
   position: absolute;
   top: 50%;
@@ -154,56 +202,87 @@
   max-width: 600px;
   max-height: 600px;
   transform: translateY(-50%) rotate(45deg);
-  pointer-events: none;
-  transition:
-    border-style 0.3s ease,
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  pointer-events: auto;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 12px;
+  border: 2px solid #d1d5db;
 }
 
 .diamond-ring--left {
-  border: 2px solid #d1d5db;
   left: -30vh;
 }
 
 .diamond-ring--right {
-  border: 2px solid #d1d5db;
   right: -30vh;
 }
 
-/* ====== Inner right "Take test" diamond (button) ====== */
-.diamond-btn {
+/* Hover "glow" style */
+.diamond-ring--hover {
+  border: 2px solid #ffffff; /* white border to blend with bg */
+}
+
+/* Expand this ring into center intro diamond */
+.diamond-ring--expanding {
+  animation: ring-expand 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  z-index: 100 !important;
+}
+
+/* =========================================================
+   6. Landing diamond buttons (labels)
+   ========================================================= */
+
+/* LEFT DIAMOND BUTTON – fixed position */
+.diamond-btn-left {
   position: absolute;
-  right: 24px;
   top: 50%;
-  transform: translateY(-50%) rotate(45deg);
+  left: 24px;
   width: 140px;
   height: 140px;
-  border: 1px solid #ffffff;
-  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.25s ease-out;
-  z-index: 0;
+  transform: translateY(-50%) rotate(-45deg);
+  border: 2px solid #ffffff;
+  background: transparent;
+  z-index: 20;
+  transition: all 0.25s ease-out;
 }
 
-.diamond-btn-inner {
-  transform: rotate(-45deg);
+/* RIGHT DIAMOND BUTTON – fixed position */
+.diamond-btn-right {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform: translateY(-50%) rotate(45deg);
+  border: 2px solid #ffffff;
+  background: transparent;
+  z-index: 20;
+  transition: all 0.25s ease-out;
+}
+
+.diamond-label-diam-icon {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.diamond-btn-label {
+.diamond-btn-label-diam {
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: #9ca3af;
 }
 
-.diamond-btn-icon {
+/* Play arrow icon (▶) */
+.diamond-btn-play-icon {
   width: 14px;
   height: 14px;
   border: 1px solid #111827;
@@ -212,53 +291,69 @@
   justify-content: center;
 }
 
-.diamond-btn-icon::before {
+.diamond-btn-play-icon::before {
   content: "▶";
   font-size: 0.6rem;
 }
 
-/* Right diamond hover: nudge itself */
-.diamond-btn:hover {
-  transform: translateY(-50%) rotate(45deg) translateX(-6px);
-}
+/* Hover nudges */
 
-/* ====== Inner left "Discover AI" diamond ====== */
-.diamond-left-label {
-  position: absolute;
-  left: 24px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-45deg);
-  width: 140px;
-  height: 140px;
-  border: 1px solid #ffffff;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.25s ease-out;
-  z-index: 0;
-}
-
-.diamond-left-label-inner {
-  transform: rotate(45deg);
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #9ca3af;
-}
-
-/* Left diamond hover: nudge itself */
-.diamond-left-label:hover {
+.diamond-btn-left:hover {
   transform: translateY(-50%) rotate(-45deg) translateX(6px);
 }
 
-/* ====== Analysis / Introduce yourself state ====== */
-.intro__frame--analysis .intro__headline-shell {
-  opacity: 0;
-  transform: translate(-80%, -50%);
+.diamond-btn-right:hover {
+  transform: translateY(-50%) rotate(45deg) translateX(-6px);
 }
 
-/* central big diamond */
+/* =========================================================
+   7. Analysis / intro diamonds and rings
+   ========================================================= */
+
+/* Radiating rings */
+.analysis-diamond-rings {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 55vh;
+  height: 55vh;
+  max-width: 720px;
+  max-height: 720px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.analysis-ring-1,
+.analysis-ring-2,
+.analysis-ring-3,
+.analysis-ring-4 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 12px;
+  animation: pulse-rings 4s infinite ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+
+.analysis-ring-1 {
+  border: 4px solid rgba(209, 213, 219, 0.6);
+}
+.analysis-ring-2 {
+  border: 3px solid rgba(209, 213, 219, 0.4);
+  animation-delay: -1s;
+}
+.analysis-ring-3 {
+  border: 2px solid rgba(209, 213, 219, 0.2);
+  animation-delay: -2s;
+}
+.analysis-ring-4 {
+  border: 1px solid rgba(209, 213, 219, 0.1);
+  animation-delay: -3s;
+}
+
+/* Base main diamond */
 .analysis-diamond {
   position: absolute;
   left: 50%;
@@ -273,119 +368,109 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease-out;
+  z-index: 20;
 }
 
-.intro__frame--analysis .analysis-diamond {
-  opacity: 1;
-  pointer-events: auto;
+/* For the simple “name / location” input state */
+.analysis-diamond--mono-shell {
+  /* stacks inline if you ever want responsiveness */
 }
 
 .analysis-diamond-inner {
   transform: rotate(-45deg);
   text-align: center;
+  width: 100%;
+  padding: 0 40px;
 }
 
-.analysis-diamond-title {
-  font-size: 1.1rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+.analysis-input-wrapper {
+  position: relative;
+  margin-top: 8px;
 }
 
-.analysis-diamond-line {
-  width: 80px;
-  height: 1px;
-  margin: 0 auto;
-  background: #111827;
-}
-
-/* inside the big analysis diamond */
-.analysis-input {
-  margin-top: 16px;
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid #d1d5db;
-  font-size: 0.9rem;
-  outline: none;
-  width: 260px;
-  max-width: 80%;
-}
-
-.analysis-input:focus {
-  border-color: #111827;
-}
-
-.analysis-continue-btn {
-  margin-top: 12px;
-  padding: 10px 20px;
-  border-radius: 999px;
-  border: none;
-  background: #111827;
-  color: #f9fafb;
-  font-size: 0.8rem;
+/*
+.analysis-input-instruction {
+  font-size: 0.75rem;
+  color: #9ca3af;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  cursor: pointer;
+  margin-bottom: 12px;
+  font-weight: 300;
+}
+*/
+
+.analysis-input {
+  padding: 16px 24px;
+  border: none;
+  background: transparent;
+  font-size: 1.25rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-family: inherit;
 }
 
-.analysis-continue-btn:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-/* Input styling to match your design */
-.analysis-input {
-  margin-top: 24px;
-  padding: 12px 20px;
-  border: 2px solid transparent;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.8);
-  font-size: 1.1rem;
-  font-family: inherit;
-  letter-spacing: 0.02em;
-  width: 280px;
-  max-width: 85%;
-  backdrop-filter: blur(10px);
-  transition: all 0.2s ease;
+.analysis-input--clean {
+  border-bottom: none;
 }
 
 .analysis-input:focus {
   outline: none;
-  border-color: #111827;
-  background: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .analysis-input::placeholder {
   color: #9ca3af;
   font-weight: 300;
+  text-align: center;
 }
 
-/* Ensure analysis mode takes full screen */
-.intro__frame--analysis {
-  padding: 24px 32px 32px;
+/* Two‑diamond split shell for selfie / gallery choice */
+.analysis-diamond-split-shell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
 }
 
-.intro__frame--expanded {
-  padding: 0;
+.analysis-diamond--choice {
+  /* neutral override of the base .analysis-diamond */
 }
 
-/* analysis header + back */
-.analysis-header {
+.analysis-diamond-choice-ico {
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.camera-ico {
+  content: attr(ico);
+}
+
+.gallery-ico {
+  content: attr(ico);
+}
+
+.analysis-diamond-choice-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Back button (bottom left) */
+.analysis-header--bottom {
   position: absolute;
   left: 32px;
-  top: 96px;
+  bottom: 96px;
   display: flex;
   align-items: center;
   gap: 16px;
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
-}
-
-.intro__frame--analysis .analysis-header {
-  opacity: 1;
+  z-index: 30;
 }
 
 .analysis-header-label {
@@ -416,16 +501,60 @@
   font-size: 0.8rem;
 }
 
-/* ====== Responsive ====== */
+/* =========================================================
+   8. Animations
+   ========================================================= */
+
+@keyframes pulse-rings {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.15);
+    opacity: 0.2;
+  }
+}
+
+/* Expand peeking ring into the intro diamond in the center */
+@keyframes ring-expand {
+  0% {
+    transform: translateY(-50%) rotate(45deg);
+    right: -30vh;
+    width: 50vh;
+    height: 50vh;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(45deg);
+    left: 50%;
+    right: 50%;
+    width: 55vh;
+    height: 55vh;
+    max-width: 720px;
+    max-height: 720px;
+  }
+}
+
+/* =========================================================
+   9. Responsive
+   ========================================================= */
+
 @media (max-width: 1024px) {
   .diamond-ring--left,
   .diamond-ring--right {
     display: none;
   }
 
-  .analysis-diamond {
+  .analysis-diamond,
+  .analysis-diamond-rings {
     width: 52vh;
     height: 52vh;
+  }
+
+  .analysis-diamond-split-shell {
+    flex-direction: column;
+    gap: 24px;
   }
 }
 
@@ -442,5 +571,9 @@
   .intro__headline {
     font-size: clamp(40px, 10vw, 72px);
     line-height: 1.05;
+  }
+
+  .analysis-input {
+    font-size: 1.125rem;
   }
 }

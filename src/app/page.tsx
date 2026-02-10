@@ -6,15 +6,15 @@ import { useState } from "react";
 
 export default function LandingPage() {
   const router = useRouter();
-
   const [hoverRight, setHoverRight] = useState(false);
   const [hoverLeft, setHoverLeft] = useState(false);
+  const [expanding, setExpanding] = useState(false);
 
   const handleTakeTestClick = () => {
-    // tiny delay so the headline can start its slide if you want
+    setExpanding(true);
     setTimeout(() => {
       router.push("/test/intro");
-    }, 200);
+    }, 600);
   };
 
   const headlineSlideClass = hoverRight
@@ -25,12 +25,17 @@ export default function LandingPage() {
 
   return (
     <main className="layout__main">
-      <section className="intro__frame">
-        {/* big side rings */}
+      <section
+        className={`intro__frame ${
+          expanding ? "intro__frame--expanding" : ""
+        }`}
+      >
+        {/* OUTER SIDE RINGS (right one is “the real” expanding diamond) */}
         <div
           className={[
             "diamond-ring diamond-ring--left",
-            hoverRight ? "is-hidden-left" : ""
+            hoverRight || expanding ? "diamond-ring--peek-hide" : "",
+            hoverLeft ? "diamond-ring--hover" : "",
           ]
             .filter(Boolean)
             .join(" ")}
@@ -38,49 +43,56 @@ export default function LandingPage() {
         <div
           className={[
             "diamond-ring diamond-ring--right",
-            hoverLeft ? "is-hidden-right" : ""
+            hoverLeft || expanding ? "diamond-ring--peek-hide" : "",
+            hoverRight ? "diamond-ring--hover" : "",
+            expanding ? "diamond-ring--expanding" : "",
           ]
             .filter(Boolean)
             .join(" ")}
+          onClick={handleTakeTestClick}
         />
 
-        {/* left Discover AI diamond */}
+        {/* LEFT DIAMOND BUTTON (Discover A.I.) */}
         <button
           type="button"
           className={[
-            "diamond-left-label",
-            hoverRight ? "is-hidden-left" : ""
+            "diamond-btn-left",
+            hoverRight || expanding ? "diamond-btn--fade-out" : "",
           ]
             .filter(Boolean)
             .join(" ")}
-          onMouseEnter={() => setHoverLeft(true)}
-          onMouseLeave={() => setHoverLeft(false)}
+          onMouseEnter={() => !expanding && setHoverLeft(true)}
+          onMouseLeave={() => !expanding && setHoverLeft(false)}
         >
-          <div className="diamond-left-label-inner">Discover A.I.</div>
+          <div className="diamond-btn-label-diam">Discover A.I.</div>
         </button>
 
-        {/* right Take test diamond */}
+        {/* RIGHT DIAMOND BUTTON (Take test) */}
         <button
           type="button"
           className={[
-            "diamond-btn",
-            hoverLeft ? "is-hidden-right" : ""
+            "diamond-btn-right",
+            hoverLeft || expanding ? "diamond-btn--fade-out" : "",
           ]
             .filter(Boolean)
             .join(" ")}
-          onMouseEnter={() => setHoverRight(true)}
-          onMouseLeave={() => setHoverRight(false)}
+          onMouseEnter={() => !expanding && setHoverRight(true)}
+          onMouseLeave={() => !expanding && setHoverRight(false)}
           onClick={handleTakeTestClick}
         >
-          <div className="diamond-btn-inner">
-            <span className="diamond-btn-label">Take test</span>
-            <span className="diamond-btn-icon" />
+          <div className="diamond-label-diam-icon">
+            <span className="diamond-btn-label-diam">Take test</span>
+            <span className="diamond-btn-play-icon" />
           </div>
         </button>
 
-        {/* center headline */}
+        {/* CENTER HEADLINE */}
         <div
-          className={["intro__headline-shell", headlineSlideClass]
+          className={[
+            "intro__headline-shell",
+            headlineSlideClass,
+            expanding ? "intro__headline-shell--fading" : "",
+          ]
             .filter(Boolean)
             .join(" ")}
         >
