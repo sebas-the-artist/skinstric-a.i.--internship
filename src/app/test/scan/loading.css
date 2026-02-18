@@ -1,65 +1,147 @@
-.scan-loading-screen {
-  min-height: 100vh;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
+/* 🔥 FULL SPINNY DIAMONDS - MISSING PIECES */
+.scan-diamond-shell {
+  position: relative !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #fafbfc !important;
+  overflow: hidden !important;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-.scan-loading-diamond {
-  width: 240px;
-  height: 240px;
-  border: 2px solid #e5e7eb;
-  border-radius: 24px;
-  background: #fafbfc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+/* CONTAINER FOR 3 DIAMONDS */
+.scan-diamond-rings {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: 55vh !important;
+  height: 55vh !important;
+  max-width: 720px !important;
+  max-height: 720px !important;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
 }
 
-.scan-loading-inner {
-  padding: 32px;
-  text-align: center;
+/* 🔥 ACTUAL DIAMOND SHAPES WITH PROPER SIZES */
+/* .scan-ring-1 {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 200px !important;
+  height: 200px !important;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%) !important;
+  transform: translate(-50%, -50%) !important;
+  background: linear-gradient(135deg, #6b7280 0%, #374151 100%) !important;
+  animation: spinDiamond 14s linear infinite !important;
+  box-shadow: 0 0 30px rgba(107, 114, 128, 0.4) !important;
 }
 
-.scan-loading-title {
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: #111827;
-  margin-bottom: 8px;
-  letter-spacing: -0.025em;
+.scan-ring-2 {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 260px !important;
+  height: 260px !important;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%) !important;
+  transform: translate(-50%, -50%) !important;
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%) !important;
+  animation: spinDiamond 18s linear infinite !important;
+  box-shadow: 0 0 25px rgba(156, 163, 175, 0.4) !important;
 }
 
-.scan-loading-subtitle {
-  font-size: 0.9rem;
-  color: #6b7280;
-  margin-bottom: 20px;
+.scan-ring-3 {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 320px !important;
+  height: 320px !important;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%) !important;
+  transform: translate(-50%, -50%) !important;
+  background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%) !important;
+  animation: spinDiamond 22s linear infinite !important;
+  box-shadow: 0 0 20px rgba(209, 213, 219, 0.4) !important;
+} */
+
+/* SPIN ANIMATION */
+@keyframes spinDiamond {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
-.scan-loading-dots {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
+/* CENTER WHITE DIAMOND */
+.scan-main-diamond {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 55vh !important;
+  height: 55vh !important;
+  max-width: 720px !important;
+  max-height: 720px !important;
+  z-index: 20 !important;
 }
 
-.scan-dot {
-  width: 8px;
-  height: 8px;
-  background: #111827;
-  border-radius: 50%;
-  animation: bounce 1.4s infinite ease-in-out both;
+.scan-diamond-inner {
+  width: 320px !important; /* FIXED SIZE - smaller than rings */
+  height: 320px !important;
+  max-width: 320px !important;
+  max-height: 320px !important;
+  background: rgba(255, 255, 255, 0.95) !important; /* SLIGHTLY TRANSPARENT */
+  backdrop-filter: blur(20px) !important; /* GLASS EFFECT */
+  border: 1px solid rgba(229, 231, 235, 0.5) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 48px 40px !important;
+  text-align: center !important;
+  z-index: 20 !important; /* ABOVE RINGS */
 }
 
-.scan-dot:nth-child(1) {
-  animation-delay: -0.32s;
-}
-.scan-dot:nth-child(2) {
-  animation-delay: -0.16s;
+/* TEXT STYLES */
+.processing-title {
+  font-size: 1.5rem !important;
+  font-weight: 300 !important;
+  color: #111827 !important;
+  margin-bottom: 12px !important;
+  letter-spacing: -0.025em !important;
 }
 
-@keyframes bounce {
+.processing-subtitle {
+  font-size: 0.95rem !important;
+  color: #6b7280 !important;
+  margin-bottom: 24px !important;
+  line-height: 1.5 !important;
+}
+
+.processing-dots {
+  display: flex !important;
+  gap: 10px !important;
+  justify-content: center !important;
+}
+
+.dot {
+  width: 8px !important;
+  height: 8px !important;
+  background: #111827 !important;
+  border-radius: 50% !important;
+  animation: dotBounce 1.4s infinite ease-in-out both !important;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.32s !important;
+}
+.dot:nth-child(2) {
+  animation-delay: -0.16s !important;
+}
+
+@keyframes dotBounce {
   0%,
   80%,
   100% {
@@ -70,57 +152,56 @@
   }
 }
 
-.scan-success-screen {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
+/* BOTTOM-RIGHT BUTTON */
+.scan-success-bottom-right {
+  position: absolute !important;
+  right: 32px !important;
+  bottom: 96px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  z-index: 30 !important;
 }
 
-.scan-success-card {
-  background: white;
-  border-radius: 20px;
-  padding: 40px 48px;
-  text-align: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  border: 1px solid #e5e7eb;
-  max-width: 360px;
-  width: 100%;
+.proceed-button-label {
+  font-size: 0.8rem !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: #6b7280 !important;
 }
 
-.scan-success-title {
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #111827;
-  margin-bottom: 8px;
-  letter-spacing: -0.025em;
+.proceed-diamond {
+  width: 48px !important;
+  height: 48px !important;
+  border: 1px solid #111827 !important;
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  transform: rotate(45deg) !important;
 }
 
-.scan-success-text {
-  color: #6b7280;
-  font-size: 0.95rem;
-  margin-bottom: 24px;
-  line-height: 1.5;
+.proceed-diamond-inner {
+  transform: rotate(-45deg) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-.scan-success-button {
-  padding: 14px 32px;
-  background: #111827;
-  color: white;
-  border: none;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.proceed-diamond-icon::before {
+  content: "▶" !important;
+  font-size: 0.85rem !important;
+  color: #111827 !important;
 }
 
-.scan-success-button:hover {
-  background: #030712;
-  transform: translateY(-1px);
-  box-shadow: 0 10px 25px rgba(17, 24, 39, 0.4);
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .scan-main-diamond,
+  .scan-diamond-rings {
+    width: 85vw !important;
+    height: 85vw !important;
+  }
 }

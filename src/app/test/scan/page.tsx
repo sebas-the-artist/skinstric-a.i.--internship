@@ -1,4 +1,5 @@
-"use client";  // ← THIS LINE MUST BE FIRST!
+//src/app/test/scan/page.tsx
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -25,12 +26,11 @@ export default function ScanPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
-  // ✅ REAL API + DYNAMIC FALLBACK
+  // ✅ YOUR REAL API + DYNAMIC FALLBACK (UNCHANGED)
   const analyzeImage = useCallback(async (base64Image: string) => {
     setStep("analyzing");
 
     try {
-      // YOUR REAL CLOUD FUNCTION 🎯
       const response = await fetch(
         "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
         {
@@ -43,17 +43,15 @@ export default function ScanPage() {
       const json = await response.json();
       console.log("✅ REAL API RESPONSE:", json);
 
-      let  data;
+      let data;
 
       if (json?.data?.race && json.data.age && json.data.gender) {
-        // 🎉 REAL DATA FROM YOUR API!
         data = {
           race: json.data.race,
           age: json.data.age,
           gender: json.data.gender,
         };
       } else {
-        // Dynamic fallback (different every time)
         const rand = Math.random();
         data = {
           race: {
@@ -79,7 +77,6 @@ export default function ScanPage() {
         };
       }
 
-      // Normalize percentages
       const normalize = (obj: Record<string, number>) => {
         const total = Object.values(obj).reduce((a, b) => a + b, 0);
         return Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, v / total]));
@@ -97,7 +94,6 @@ export default function ScanPage() {
 
     } catch (error) {
       console.error("❌ API failed:", error);
-      // Realistic fallback
       const fallback = {
         race: { "east asian": 0.28, white: 0.18, "middle eastern": 0.22, "south asian": 0.12, black: 0.08, "latino hispanic": 0.07, "southeast asian": 0.05 },
         age: { "20-29": 0.42, "30-39": 0.25, "40-49": 0.18, "10-19": 0.08, "50-59": 0.07 },
@@ -109,7 +105,6 @@ export default function ScanPage() {
     }
   }, []);
 
-  // GALLERY
   const handleGalleryClick = () => fileInputRef.current?.click();
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -119,7 +114,6 @@ export default function ScanPage() {
     reader.readAsDataURL(file);
   };
 
-  // CAMERA
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -152,18 +146,26 @@ export default function ScanPage() {
 
   const goToResults = () => router.push("/test/results");
 
-  // RENDER STATES (unchanged - your existing UI)
+  // 🔥 NEW ANALYZING SCREEN WITH SPINNERS
   if (step === "analyzing") {
     return (
-      <div className="scan-loading-screen">
-        <div className="scan-loading-diamond">
-          <div className="scan-loading-inner">
-            <div className="scan-loading-title">Analyzing image</div>
-            <div className="scan-loading-subtitle">A.I. is estimating your demographics</div>
-            <div className="scan-loading-dots">
-              <span className="scan-dot scan-dot-1" />
-              <span className="scan-dot scan-dot-2" />
-              <span className="scan-dot scan-dot-3" />
+      <div className="scan-diamond-shell">
+        {/* 3 spinning rings */}
+        <div className="scan-diamond-rings">
+          <div className="scan-ring-1" />
+          <div className="scan-ring-2" />
+          <div className="scan-ring-3" />
+        </div>
+
+        {/* Center diamond */}
+        <div className="scan-main-diamond">
+          <div className="scan-diamond-inner">
+            <div className="processing-title">Analyzing image</div>
+            <div className="processing-subtitle">A.I. is estimating your demographics</div>
+            <div className="processing-dots">
+              <span className="dot dot-1" />
+              <span className="dot dot-2" />
+              <span className="dot dot-3" />
             </div>
           </div>
         </div>
@@ -171,14 +173,32 @@ export default function ScanPage() {
     );
   }
 
+  // 🔥 NEW SUCCESS SCREEN WITH SPINNERS + BOTTOM-RIGHT BUTTON
   if (step === "success") {
     return (
-      <div className="scan-success-screen">
-        <div className="scan-success-card">
-          <div className="scan-success-title">Image analyzed successfully</div>
-          <div className="scan-success-text">Your demographic breakdown is ready.</div>
-          <button className="scan-success-button" onClick={goToResults}>
-            Heck yeah
+      <div className="scan-diamond-shell">
+        {/* 3 spinning rings */}
+        <div className="scan-diamond-rings">
+          <div className="scan-ring-1" />
+          <div className="scan-ring-2" />
+          <div className="scan-ring-3" />
+        </div>
+
+        {/* Center diamond */}
+        <div className="scan-main-diamond">
+          <div className="scan-diamond-inner">
+            <div className="processing-title">Image analyzed successfully</div>
+            <div className="processing-subtitle">Your demographic breakdown is ready.</div>
+          </div>
+        </div>
+
+        {/* 🔥 HECK YEAH BOTTOM-RIGHT */}
+        <div className="scan-success-bottom-right">
+          <span className="proceed-button-label">Heck yeah</span>
+          <button className="proceed-diamond" onClick={goToResults}>
+            <div className="proceed-diamond-inner">
+              <span className="proceed-diamond-icon" />
+            </div>
           </button>
         </div>
       </div>
@@ -200,7 +220,7 @@ export default function ScanPage() {
     );
   }
 
-  // UPLOAD SCREEN (your diamonds)
+  // UPLOAD SCREEN (UNCHANGED)
   return (
     <div className="scan-upload-screen">
       <div className="back-button bottom-left" onClick={() => router.back()}>
