@@ -1,6 +1,5 @@
-// src/app/page.tsx
 "use client";
-
+import "./styles.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -24,92 +23,71 @@ export default function LandingPage() {
     : "";
 
   return (
-    <main className="layout__main">
-      <section
-        className={`intro__frame ${
-          expanding ? "intro__frame--expanding" : ""
-        }`}
-      >
-        {/* OUTER SIDE RINGS (right one is “the real” expanding diamond) */}
-        <div
-          className={[
+    <div className="layout__shell">
+      <header className="nav__bar">
+        <div className="nav__left">
+          <a href="/" className="nav__logo">Skinstric</a>
+          <span className="nav__section-label">[intro]</span>
+        </div>
+        <button type="button" className="nav__enter-code">Enter code</button>
+      </header>
+
+      <main className="layout__main">
+        <section className={`intro__frame ${expanding ? "intro__frame--expanding" : ""}`}>
+          <div className={[
             "diamond-ring diamond-ring--left",
             hoverRight || expanding ? "diamond-ring--peek-hide" : "",
             hoverLeft ? "diamond-ring--hover" : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        />
-        <div
-          className={[
-            "diamond-ring diamond-ring--right",
-            hoverLeft || expanding ? "diamond-ring--peek-hide" : "",
-            hoverRight ? "diamond-ring--hover" : "",
-            expanding ? "diamond-ring--expanding" : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-          onClick={handleTakeTestClick}
-        />
+          ].filter(Boolean).join(" ")} />
+          
+          <div 
+            className={[
+              "diamond-ring diamond-ring--right",
+              hoverLeft || expanding ? "diamond-ring--peek-hide" : "",
+              hoverRight ? "diamond-ring--hover" : "",
+              expanding ? "diamond-ring--expanding" : "",
+            ].filter(Boolean).join(" ")}
+            onClick={handleTakeTestClick}
+          />
 
-        {/* LEFT DIAMOND BUTTON (Discover A.I.) */}
-        <button
-          type="button"
-          className={[
-            "diamond-btn-left",
-            hoverRight || expanding ? "diamond-btn--fade-out" : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-          onMouseEnter={() => !expanding && setHoverLeft(true)}
-          onMouseLeave={() => !expanding && setHoverLeft(false)}
-        >
-          <div className="diamond-btn-label-diam">Discover A.I.</div>
-        </button>
+          <button
+            type="button"
+            className={["diamond-btn-left", hoverRight || expanding ? "diamond-btn--fade-out" : ""].filter(Boolean).join(" ")}
+            onMouseEnter={() => !expanding && setHoverLeft(true)}
+            onMouseLeave={() => !expanding && setHoverLeft(false)}
+          >
+            <span className="diamond-btn-play-icon flip" />
+            <div className="diamond-btn-label-diam">Discover A.I.</div>
+          </button>
 
-        {/* RIGHT DIAMOND BUTTON (Take test) */}
-        <button
-          type="button"
-          className={[
-            "diamond-btn-right",
-            hoverLeft || expanding ? "diamond-btn--fade-out" : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-          onMouseEnter={() => !expanding && setHoverRight(true)}
-          onMouseLeave={() => !expanding && setHoverRight(false)}
-          onClick={handleTakeTestClick}
-        >
-          <div className="diamond-label-diam-icon">
-            <span className="diamond-btn-label-diam">Take test</span>
-            <span className="diamond-btn-play-icon" />
+          <button
+            type="button"
+            className={["diamond-btn-right", hoverLeft || expanding ? "diamond-btn--fade-out" : ""].filter(Boolean).join(" ")}
+            onMouseEnter={() => !expanding && setHoverRight(true)}
+            onMouseLeave={() => !expanding && setHoverRight(false)}
+            onClick={handleTakeTestClick}
+          >
+            <div className="diamond-label-diam-icon">
+              <span className="diamond-btn-label-diam">Take test</span>
+              <span className="diamond-btn-play-icon" />
+            </div>
+          </button>
+
+          <div className={["intro__headline-shell", headlineSlideClass, expanding ? "intro__headline-shell--fading" : ""].filter(Boolean).join(" ")}>
+            <h1 className="intro__headline">
+              Sophisticated
+              <br />
+              skincare
+            </h1>
           </div>
-        </button>
-
-        {/* CENTER HEADLINE */}
-        <div
-          className={[
-            "intro__headline-shell",
-            headlineSlideClass,
-            expanding ? "intro__headline-shell--fading" : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        >
-          <h1 className="intro__headline">
-            Sophisticated
-            <br />
-            skincare
-          </h1>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <footer className="layout__footer">
         <p className="footer__text">
-          Skinstric developed an A.I. that creates a highly‑personalised routine
-          tailored to what your skin needs.
+          Skinstric developed an A.I. that creates a highly‑personalised routine tailored to what your skin needs.
         </p>
       </footer>
-    </main>
+    </div>
   );
 }

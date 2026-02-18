@@ -1,0 +1,219 @@
+/*src/app/styles.css*/
+.intro__frame {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.nav__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 32px;
+  padding-bottom: 16px;
+  padding-top: 16px;
+}
+
+.nav__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav__logo {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #111827;
+}
+
+.nav__section-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #9ca3af;
+}
+
+.nav__enter-code {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #111827;
+  color: #f9fafb;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.intro__headline-shell {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.5s ease-out;
+  text-align: center;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.intro__headline-shell--fading {
+  opacity: 0;
+}
+
+.intro__headline {
+  margin: 0;
+  font-weight: 300;
+  font-size: clamp(64px, 8vw, 128px);
+  line-height: 120px;
+  letter-spacing: -0.07em;
+  white-space: nowrap;
+}
+
+.intro__headline-shell--left {
+  transform: translate(-50%, -50%) translateX(-30vw);
+  text-align: left;
+}
+
+.intro__headline-shell--right {
+  transform: translate(-50%, -50%) translateX(30vw);
+  text-align: right;
+}
+
+.diamond-ring {
+  position: absolute;
+  top: 50%;
+  width: 50vh;
+  height: 50vh;
+  max-width: 600px;
+  max-height: 600px;
+  transform: translateY(-50%) rotate(45deg);
+  pointer-events: auto;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 12px;
+  border: 2px solid #d1d5db;
+}
+
+.diamond-ring--left {
+  left: -30vh;
+}
+.diamond-ring--right {
+  right: -30vh;
+}
+
+.diamond-ring--peek-hide {
+  opacity: 0;
+  transform: translateY(-50%) rotate(45deg) translateX(-60px);
+}
+
+.diamond-ring--hover {
+  border: 2px solid #ffffff;
+}
+
+.diamond-ring--expanding {
+  animation: ring-expand 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  z-index: 100 !important;
+}
+
+.diamond-btn-left,
+.diamond-btn-right {
+  position: absolute;
+  top: 50%;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* border: 2px solid #ffffff; */
+  border: 2px solid transparent;
+  background: transparent;
+  z-index: 20;
+  transition: all 0.25s ease-out;
+}
+
+.diamond-btn-left::before,
+.diamond-btn-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  border: inherit;
+  background: inherit;
+  transform: rotate(45deg);
+}
+
+.diamond-btn-left {
+  left: 24px;
+  transform: translateY(-50%);
+}
+.diamond-btn-right {
+  right: 24px;
+  transform: translateY(-50%);
+}
+
+.diamond-btn-label-diam,
+.diamond-label-diam-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.diamond-label-diam-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.diamond-btn-label-diam {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.diamond-btn-play-icon {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flip {
+  transform: rotate(180deg);
+}
+
+.diamond-btn-play-icon::before {
+  content: "▶";
+  font-size: 0.6rem;
+}
+
+.diamond-btn-left:hover {
+  transform: translateY(-50%) translateX(4px) scale(1.1);
+}
+
+.diamond-btn-right:hover {
+  transform: translateY(-50%) translateX(-4px) scale(1.1);
+}
+
+.diamond-btn--fade-out {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.92);
+}
+
+.intro__frame--expanding * {
+  pointer-events: none !important;
+}
+
+@keyframes ring-expand {
+  to {
+    transform: translateY(-50%) rotate(45deg) scale(3);
+  }
+}
