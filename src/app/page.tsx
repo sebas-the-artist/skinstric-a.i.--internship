@@ -49,8 +49,37 @@ export default function LandingPage() {
             ].filter(Boolean).join(" ")}
             onClick={handleTakeTestClick}
           />
+          {/*  */}
+          {/*  */}
+          {/*  */}
+          {/*  */}
 
-          <button
+<button
+  type="button"
+  className={["diamond-btn-left", hoverRight || expanding ? "diamond-btn--fade-out" : ""].filter(Boolean).join(" ")}
+  onMouseEnter={() => !expanding && setHoverLeft(true)}
+  onMouseLeave={() => !expanding && setHoverLeft(false)}
+>
+  <div className="diamond-btn-inner">
+    <span className="diamond-btn-icon flip" />
+  </div>
+  <div className="diamond-btn-label-diam">Discover A.I.</div>
+</button>
+
+<button
+  type="button"
+  className={["diamond-btn-right", hoverLeft || expanding ? "diamond-btn--fade-out" : ""].filter(Boolean).join(" ")}
+  onMouseEnter={() => !expanding && setHoverRight(true)}
+  onMouseLeave={() => !expanding && setHoverRight(false)}
+  onClick={handleTakeTestClick}
+>
+  <span className="diamond-btn-label-diam">Take test</span>
+  <div className="diamond-btn-inner">
+    <span className="diamond-btn-icon" />
+  </div>
+</button>
+
+          {/* <button
             type="button"
             className={["diamond-btn-left", hoverRight || expanding ? "diamond-btn--fade-out" : ""].filter(Boolean).join(" ")}
             onMouseEnter={() => !expanding && setHoverLeft(true)}
@@ -71,15 +100,32 @@ export default function LandingPage() {
               <span className="diamond-btn-label-diam">Take test</span>
               <span className="diamond-btn-play-icon" />
             </div>
-          </button>
+          </button> */}
 
-          <div className={["intro__headline-shell", headlineSlideClass, expanding ? "intro__headline-shell--fading" : ""].filter(Boolean).join(" ")}>
+          <div
+            className={[
+              "intro__headline-shell",
+              headlineSlideClass,
+              expanding ? "intro__headline-shell--fading" : ""
+            ].filter(Boolean).join(" ")}
+          >
+            <div className="intro__headline-inner">
+              <h1 className="intro__headline">
+                Sophisticated
+                <br />
+                skincare
+              </h1>
+            </div>
+          </div>
+
+
+          {/* <div className={["intro__headline-shell", headlineSlideClass, expanding ? "intro__headline-shell--fading" : ""].filter(Boolean).join(" ")}>
             <h1 className="intro__headline">
               Sophisticated
               <br />
               skincare
             </h1>
-          </div>
+          </div> */}
         </section>
       </main>
 

@@ -151,7 +151,7 @@ export default function TestIntroPage() {
           {/* Next button (diamond bottom-right) */}
           {step <= 2 && (
             <div className="proceed-wrapper">
-              <span className="proceed-button-label">Next</span>
+              {/* <span className="proceed-button-label">Next</span>
               <button
                 type="button"
                 className="proceed-diamond"
@@ -160,7 +160,7 @@ export default function TestIntroPage() {
                 <div className="proceed-diamond-inner">
                   <span className="proceed-diamond-icon" />
                 </div>
-              </button>
+              </button> */}
             </div>
           )}
 

@@ -60,7 +60,6 @@
 }
 
 /* Back */
-
 .analysis-header--bottom {
   position: absolute;
   left: 32px;
@@ -89,6 +88,9 @@
   justify-content: center;
   cursor: pointer;
   padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  z-index: 40;
 }
 
 .back-diamond-inner {
@@ -99,7 +101,7 @@
 }
 
 .back-diamond-icon::before {
-  content: "←";
+  content: "◀︎";
   font-size: 0.8rem;
 }
 

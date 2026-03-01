@@ -1,22 +1,21 @@
-* {
-  box-sizing: border-box;
-}
-
 .results-page {
   min-height: 100vh;
   background: #f9fafb;
-  padding: 40px;
+  padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* TOP HEADER */
+/* HEADER */
 .results-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .header-main {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: #666;
   letter-spacing: 0.1em;
@@ -25,7 +24,7 @@
 }
 
 .header-title {
-  font-size: 48px;
+  font-size: 32px;
   font-weight: 700;
   color: #000;
   letter-spacing: -0.05em;
@@ -33,34 +32,41 @@
 }
 
 .header-subtitle {
-  font-size: 14px;
+  font-size: 13px;
   color: #999;
   letter-spacing: 0.05em;
 }
 
-/* MAIN GRID */
+/* BASE MOBILE: FULL HEIGHT VERTICAL STACK */
 .results-grid {
-  display: grid;
-  grid-template-columns: 260px 1fr 320px;
-  gap: 50px;
-  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 600px;
   margin: 0 auto;
+  min-height: calc(100vh - 200px); /* full height minus header/padding */
 }
 
-/* LEFT - GREY SHARP BOXES WITH TOP LINE */
+.results-middle {
+  order: -1; /* CIRCLE FIRST on mobile */
+  flex: 1; /* takes available space */
+}
+
+/* LEFT CARDS */
 .results-left {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .left-card {
-  width: 100%;
-  height: 90px;
+  height: 80px;
   background: #f5f5f5;
-  border: none;
   position: relative;
-  padding: 20px;
+  padding: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .left-card::before {
@@ -73,60 +79,87 @@
   background: #000;
 }
 
+.left-card:hover {
+  background: #f0f0f0;
+}
+
+.left-card.active {
+  background: #000;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.left-card.active .box-title,
+.left-card.active .box-value {
+  color: #fff !important;
+}
+
 .box-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: #666;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .box-value {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   color: #000;
   letter-spacing: -0.02em;
 }
 
-/* MIDDLE - CIRCLE */
-.results-middle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* CIRCLE */
 .circle-section {
   text-align: center;
+  width: 100%;
 }
 
 .circle-category {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #666;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .circle-label {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 400;
   color: #000;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   letter-spacing: -0.03em;
 }
 
 .circle-container {
   position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 0 auto 20px;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto 16px;
 }
 
 .circle-svg {
+  width: 100%;
+  height: 100%;
   transform: rotate(-90deg);
   transform-origin: center;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #e5e7eb;
+  stroke-width: 14;
+}
+
+.circle-progress {
+  fill: none;
+  stroke: #000;
+  stroke-width: 14;
+  stroke-dasharray: 706.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
 }
 
 .circle-inner {
@@ -134,8 +167,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   background: #fff;
   border-radius: 50%;
   display: flex;
@@ -144,20 +177,21 @@
 }
 
 .circle-number {
-  font-size: 52px;
+  font-size: 44px;
   font-weight: 300;
   color: #000;
   letter-spacing: -0.05em;
 }
 
 .circle-caption {
-  font-size: 13px;
+  font-size: 12px;
   color: #999;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  margin-top: 8px;
 }
 
-/* RIGHT - SHOW ALL (EVEN 0%) */
+/* RIGHT LIST */
 .results-right {
   display: flex;
   flex-direction: column;
@@ -166,31 +200,49 @@
 .right-header {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: #666;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .right-list {
   background: #f5f5f5;
-  min-height: 400px;
-  padding: 25px;
+  padding: 20px;
+  min-height: 300px;
+  border-radius: 12px;
 }
 
 .right-item {
   display: flex;
   justify-content: space-between;
   padding: 12px 0;
-  font-size: 15px;
+  font-size: 14px;
   color: #333;
   border-bottom: 1px solid #e5e5e5;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .right-item:last-child {
   border-bottom: none;
+}
+
+.right-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.right-item.active {
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  margin: 4px 0;
+}
+
+.right-item.active span:last-child {
+  color: #fff !important;
 }
 
 .right-item span:last-child {
@@ -198,10 +250,110 @@
   color: #000;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1100px) {
+/* ========================================
+   RESPONSIVE: SWITCH TO 3-COLUMN AT 768px+
+   ======================================== */
+
+/* TABLET/DESKTOP ≥768px */
+@media (min-width: 768px) {
+  .results-page {
+    padding: 30px;
+  }
+
+  .header-title {
+    font-size: 40px;
+  }
+
+  /* SWITCH TO 3-COLUMN GRID */
   .results-grid {
-    grid-template-columns: 1fr;
+    display: grid !important;
+    grid-template-columns: 260px 1fr 320px;
     gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: auto; /* let it grow naturally */
+  }
+
+  .results-middle {
+    order: 0; /* circle back to middle */
+  }
+
+  /* DESKTOP SIZING */
+  .left-card {
+    height: 90px;
+    padding: 20px;
+  }
+
+  .box-title {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .box-value {
+    font-size: 20px;
+  }
+
+  .circle-category {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .circle-label {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .circle-container {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+  }
+
+  .circle-bg {
+    stroke-width: 16;
+  }
+
+  .circle-progress {
+    stroke-width: 16;
+    stroke-dasharray: 753.6;
+  }
+
+  .circle-inner {
+    width: 180px;
+    height: 180px;
+  }
+
+  .circle-number {
+    font-size: 52px;
+  }
+
+  .right-header {
+    font-size: 12px;
+    margin-bottom: 20px;
+  }
+
+  .right-list {
+    padding: 25px;
+    min-height: 400px;
+  }
+
+  .right-item {
+    font-size: 15px;
+    padding: 14px 0;
+  }
+}
+
+/* DESKTOP ≥1024px */
+@media (min-width: 1024px) {
+  .results-page {
+    padding: 40px;
+  }
+
+  .header-title {
+    font-size: 48px;
+  }
+
+  .results-grid {
+    gap: 50px;
   }
 }

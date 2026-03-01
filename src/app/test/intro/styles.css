@@ -1,5 +1,4 @@
-/* Shared layout (relies on globals.css for layout__shell/main) */
-/*src/app/test/intro/styles.css*/
+/* FRAME */
 .intro__frame--analysis {
   flex: 1;
   position: relative;
@@ -7,7 +6,7 @@
   height: 100%;
 }
 
-/* Spinning diamond rings */
+/* SPINNING RINGS */
 .analysis-diamond-rings {
   position: absolute;
   left: 50%;
@@ -40,10 +39,12 @@
   transform: translate(-50%, -50%) rotate(65deg);
   opacity: 0.7;
 }
+
 .analysis-ring-3 {
   transform: translate(-50%, -50%) rotate(85deg);
   opacity: 0.5;
 }
+
 .analysis-ring-4 {
   transform: translate(-50%, -50%) rotate(105deg);
   opacity: 0.3;
@@ -58,7 +59,7 @@
   }
 }
 
-/* Main center diamond */
+/* MAIN CENTER DIAMOND */
 .analysis-diamond {
   position: absolute;
   left: 50%;
@@ -83,7 +84,7 @@
   padding: 0 40px;
 }
 
-/* Inputs centered inside diamond */
+/* INPUTS */
 .analysis-input-wrapper {
   position: relative;
   margin-top: 16px;
@@ -113,7 +114,7 @@
   text-align: center;
 }
 
-/* Titles */
+/* TITLES & LOADING */
 .processing-title {
   font-size: 1.5rem;
   font-weight: 300;
@@ -127,7 +128,6 @@
   color: #6b7280;
 }
 
-/* Loading dots */
 .processing-dots {
   display: flex;
   justify-content: center;
@@ -162,7 +162,7 @@
   }
 }
 
-/* Back button bottom-left */
+/* BACK BUTTON (BOTTOM LEFT) */
 .analysis-header--bottom {
   position: absolute;
   left: 32px;
@@ -185,13 +185,14 @@
   height: 44px;
   border: 1px solid #111827;
   background: #ffffff;
-  /* transform: rotate(45deg); */
   transform: rotate(45deg);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .back-diamond-inner {
@@ -206,13 +207,7 @@
   font-size: 0.8rem;
 }
 
-.gone {
-  display: none;
-  visibility: hidden;
-  color: transparent;
-}
-
-/* Next button bottom-right */
+/* NEXT BUTTON (BOTTOM RIGHT) */
 .proceed-wrapper {
   position: absolute;
   right: 32px;
@@ -255,18 +250,108 @@
   color: #6b7280;
 }
 
-/* Responsive tweaks */
-@media (max-width: 1024px) {
-  .analysis-diamond,
-  .analysis-diamond-rings {
-    width: 52vh;
-    height: 52vh;
-  }
-}
+/* ============= RESPONSIVE ============= */
 
+/* SMALL SCREENS */
 @media (max-width: 640px) {
   .analysis-header--bottom,
   .proceed-wrapper {
     bottom: 72px;
+  }
+
+  /* hide label on tiny screens if needed */
+  .proceed-button-label {
+    color: transparent;
+  }
+}
+
+/* TABLET (≥640px) */
+@media (min-width: 640px) {
+  .analysis-diamond-rings {
+    width: 70vh;
+    height: 70vh;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .analysis-diamond {
+    width: 60vh;
+    height: 60vh;
+    max-width: 550px;
+    max-height: 550px;
+  }
+
+  .analysis-header--bottom,
+  .proceed-wrapper {
+    bottom: 80px;
+  }
+
+  .analysis-input {
+    font-size: 1.4rem;
+    padding: 20px 28px;
+    max-width: 420px;
+  }
+
+  .processing-title {
+    font-size: 1.7rem;
+  }
+}
+
+/* DESKTOP (≥1024px) */
+@media (min-width: 1024px) {
+  .intro__frame--analysis {
+    padding: 40px;
+  }
+
+  .analysis-diamond-rings {
+    width: 55vh;
+    height: 55vh;
+    max-width: 720px;
+    max-height: 720px;
+  }
+
+  .analysis-diamond {
+    width: 55vh;
+    height: 55vh;
+    max-width: 720px;
+    max-height: 720px;
+  }
+
+  .analysis-header--bottom {
+    bottom: 96px;
+    left: 40px;
+  }
+
+  .proceed-wrapper {
+    bottom: 96px;
+    right: 40px; /* keep bottom-right, not mirrored to left */
+  }
+
+  .analysis-input {
+    font-size: 1.5rem;
+    padding: 24px 32px;
+    max-width: 480px;
+  }
+
+  .processing-title {
+    font-size: 2rem;
+  }
+
+  .back-diamond,
+  .proceed-diamond {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* LANDSCAPE MOBILE (low height) */
+@media (max-height: 500px) and (min-width: 480px) {
+  .analysis-header--bottom,
+  .proceed-wrapper {
+    bottom: 24px;
+  }
+
+  .analysis-diamond-rings {
+    transform: translate(-50%, -60%);
   }
 }

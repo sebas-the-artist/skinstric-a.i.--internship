@@ -1,3 +1,4 @@
+/* src/app/test/scan/diamonds.css */
 .scan-upload-screen,
 .results-screen {
   width: 100vw;
@@ -16,19 +17,40 @@
   z-index: 100;
 }
 
+.back-diamond-icon {
+  /* transform: rotate(-45deg); */
+  transform: rotate(0deg);
+}
 .back-diamond {
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #111827;
+  background: #ffffff;
+  transform: rotate(45deg);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
+  padding: 0;
+  border-radius: 0; /* force sharp corners */
+  box-shadow: none; /* in case globals add shadows */
+}
+
+.analysis-header--bottom {
+  position: absolute;
+  left: 32px;
+  bottom: 96px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 30;
+}
+
+.analysis-header-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6b7280;
 }
 
 .back-diamond:hover {
@@ -235,3 +257,69 @@
     height: 180px;
   }
 }
+
+/* TABLET (640px+) */
+/* TABLET (640px+) */
+/* TABLET (640px+) */
+/* MOBILE: Stack diamonds vertically */
+@media (max-width: 768px) {
+  .diamonds-row {
+    flex-direction: column !important;
+    gap: 40px !important;
+    align-items: center;
+  }
+
+  .scan-diamond {
+    width: 280px !important;
+    height: 280px !important;
+  }
+
+  .instruction-text {
+    margin-bottom: 40px !important;
+  }
+}
+
+/* TABLET+: Horizontal */
+@media (min-width: 769px) {
+  .diamonds-row {
+    flex-direction: row !important;
+  }
+}
+
+/* 
+@media (min-width: 640px) {
+  .instruction-text {
+    font-size: 24px;
+    margin-bottom: 100px;
+  }
+
+  .diamonds-row {
+    gap: 15vw;
+  }
+
+  .scan-diamond {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scan-upload-screen {
+    padding: 40px;
+  }
+
+  .instruction-text {
+    font-size: 28px;
+    margin-bottom: 120px;
+  }
+
+  .diamonds-row {
+    gap: 25vw;
+  }
+
+  .scan-diamond {
+    width: 260px;
+    height: 260px;
+  }
+}
+ */

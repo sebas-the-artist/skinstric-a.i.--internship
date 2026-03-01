@@ -50,7 +50,7 @@
   cursor: pointer;
 }
 
-.intro__headline-shell {
+/* .intro__headline-shell {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -61,6 +61,22 @@
   text-align: center;
   backface-visibility: hidden;
   transform-style: preserve-3d;
+} */
+.intro__headline-shell {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.5s ease-out;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.intro__headline-inner {
+  text-align: center;
+  transition: text-align 0.5s ease; /* not truly animatable, but keeps layout stable */
 }
 
 .intro__headline-shell--fading {
@@ -76,7 +92,7 @@
   white-space: nowrap;
 }
 
-.intro__headline-shell--left {
+/* .intro__headline-shell--left {
   transform: translate(-50%, -50%) translateX(-30vw);
   text-align: left;
 }
@@ -84,7 +100,42 @@
 .intro__headline-shell--right {
   transform: translate(-50%, -50%) translateX(30vw);
   text-align: right;
+} */
+.intro__headline-shell--left {
+  transform: translate(-50%, -50%) translateX(-30vw);
 }
+
+.intro__headline-shell--right {
+  transform: translate(-50%, -50%) translateX(30vw);
+}
+/**/
+/**/
+/**/
+.intro__headline-shell--left .intro__headline-inner {
+  transition: all 0.5s ease;
+  transition: all 0.5s ease !important;
+  text-align: left;
+  padding-left: 4vw;
+  padding-right: 0;
+}
+
+.intro__headline-shell--right .intro__headline-inner {
+  transition: all 0.5s ease;
+  transition: all 0.5s ease !important;
+  text-align: right;
+  padding-right: 4vw;
+  padding-left: 0;
+}
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
 
 .diamond-ring {
   position: absolute;
@@ -105,6 +156,31 @@
 }
 .diamond-ring--right {
   right: -30vh;
+}
+/* @media (max-width: 500px) {
+  .diamond-ring--left {
+    left: 0vh;
+    border: 2px solid #ffffff;
+  }
+  .diamond-ring--right {
+    right: 0vh;
+    border: 2px solid #ffffff;
+  }
+  .diamond-ring {
+    border: 2px solid #ffffff;
+  }
+} */
+/* Make landing diamond ring invisible on tablet & mobile */
+@media (max-width: 768px) {
+  .diamond-ring {
+    border-color: #ffffff !important; /* visually disappears on white bg */
+  }
+
+  .diamond-ring--left,
+  .diamond-ring--right {
+    left: 0;
+    right: 0;
+  }
 }
 
 .diamond-ring--peek-hide {
@@ -152,6 +228,7 @@
 .diamond-btn-left {
   left: 24px;
   transform: translateY(-50%);
+  padding: 0;
 }
 .diamond-btn-right {
   right: 24px;
@@ -176,6 +253,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #9ca3af;
+
+  padding: 0 8px 0 8px;
 }
 
 .diamond-btn-play-icon {
@@ -215,5 +294,67 @@
 @keyframes ring-expand {
   to {
     transform: translateY(-50%) rotate(45deg) scale(3);
+  }
+}
+
+/* as
+ */
+/* as
+ */
+/* as
+ */
+/* as
+ */
+/* Outer diamond button, similar to back-diamond */
+.diamond-btn-inner {
+  /* width: 44px !important; */
+  /* min-width: 44px !important; */
+  /* height: 44px !important; */
+  /* min-height: 44px !important; */
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  border: 1px solid #111827;
+  background: #ffffff;
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* click handled by parent button */
+}
+
+/* Inner content rotated back, same as back-diamond-inner */
+.diamond-btn-icon {
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Triangle icon, same size as back-diamond-icon */
+.diamond-btn-icon::before {
+  content: "▶";
+  font-size: 0.8rem;
+  color: #111827;
+}
+
+/* Left variant flipped (back arrow style) */
+.diamond-btn-icon.flip::before {
+  content: "◀︎";
+}
+
+/* MOBILE: Stack diamonds vertically */
+@media (max-width: 500px) {
+  .diamond-ring {
+    position: absolute;
+    top: 50%;
+    width: 50vh;
+    height: 50vh;
+    max-width: 600px;
+    max-height: 600px;
+
+    /*   border: 2px solid #d1d5db; */
+    border: 2px solid #ffffff;
   }
 }
