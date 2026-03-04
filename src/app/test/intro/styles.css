@@ -251,9 +251,21 @@
 }
 
 /* ============= RESPONSIVE ============= */
+/* LANDSCAPE MOBILE (low height) */
+@media (max-height: 500px) and (min-width: 480px) {
+  .analysis-header--bottom,
+  .proceed-wrapper {
+    bottom: 24px;
+  }
+
+  .analysis-diamond-rings {
+    transform: translate(-50%, -60%);
+  }
+}
 
 /* SMALL SCREENS */
-@media (max-width: 640px) {
+/* TABLET (≥640px) */
+@media (min-width: 640px) {
   .analysis-header--bottom,
   .proceed-wrapper {
     bottom: 72px;
@@ -263,11 +275,7 @@
   .proceed-button-label {
     color: transparent;
   }
-}
-
-/* TABLET (≥640px) */
-@media (min-width: 640px) {
-  .analysis-diamond-rings {
+  /* .analysis-diamond-rings {
     width: 70vh;
     height: 70vh;
     max-width: 500px;
@@ -279,7 +287,7 @@
     height: 60vh;
     max-width: 550px;
     max-height: 550px;
-  }
+  } */
 
   .analysis-header--bottom,
   .proceed-wrapper {
@@ -294,6 +302,48 @@
 
   .processing-title {
     font-size: 1.7rem;
+  }
+}
+
+/* INTRO DIAMOND RESPONSIVE */
+/* INTRO DIAMOND RESPONSIVE */
+/* base is your current 55vh diamond */
+/* phones: shrink slightly */
+@media (max-width: 640px) {
+  .analysis-diamond,
+  .analysis-diamond-rings {
+    width: 70vmin;
+    height: 70vmin;
+    max-width: none;
+    max-height: none;
+  }
+
+  .analysis-diamond-inner {
+    padding: 0 24px;
+  }
+
+  .analysis-input {
+    font-size: 1.1rem;
+    max-width: 260px;
+  }
+
+  .processing-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* small tablets */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .analysis-diamond,
+  .analysis-diamond-rings {
+    width: 60vmin;
+    height: 60vmin;
+    max-width: none;
+    max-height: none;
+  }
+
+  .analysis-diamond-inner {
+    padding: 0 32px;
   }
 }
 
@@ -341,17 +391,5 @@
   .proceed-diamond {
     width: 52px;
     height: 52px;
-  }
-}
-
-/* LANDSCAPE MOBILE (low height) */
-@media (max-height: 500px) and (min-width: 480px) {
-  .analysis-header--bottom,
-  .proceed-wrapper {
-    bottom: 24px;
-  }
-
-  .analysis-diamond-rings {
-    transform: translate(-50%, -60%);
   }
 }
